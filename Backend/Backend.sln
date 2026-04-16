@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "estoque-service", "estoque-service\estoque-service.csproj", "{7D4BF215-23DE-389E-73A7-D0D9AFBB68D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "faturamento-service", "faturamento-service\faturamento-service.csproj", "{E43BDEF1-449C-A590-0C55-3B851AB6FA85}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7D4BF215-23DE-389E-73A7-D0D9AFBB68D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D4BF215-23DE-389E-73A7-D0D9AFBB68D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D4BF215-23DE-389E-73A7-D0D9AFBB68D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D4BF215-23DE-389E-73A7-D0D9AFBB68D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E43BDEF1-449C-A590-0C55-3B851AB6FA85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E43BDEF1-449C-A590-0C55-3B851AB6FA85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E43BDEF1-449C-A590-0C55-3B851AB6FA85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E43BDEF1-449C-A590-0C55-3B851AB6FA85}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8F658654-74EB-4D11-9EFF-2A815D92E47C}
+	EndGlobalSection
+EndGlobal
