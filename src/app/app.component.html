@@ -1,0 +1,15 @@
+<mat-toolbar color="primary">
+  Sistema de Notas Fiscais
+</mat-toolbar>
+
+<mat-sidenav-container style="height: 100vh;">
+  <mat-sidenav mode="side" opened>
+    <button mat-button routerLink="/entrada">Entrada</button>
+    <button mat-button routerLink="/produtos">Produtos</button>
+    <button mat-button routerLink="/notas">Notas</button>
+  </mat-sidenav>
+
+  <mat-sidenav-content style="padding: 16px;">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
