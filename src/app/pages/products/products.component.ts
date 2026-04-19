@@ -18,9 +18,9 @@ import { ProductService, Product } from '../../services/product.service';
     MatButtonModule,
     MatTableModule
   ],
-  templateUrl: './produtos.component.html'
+  templateUrl: './products.component.html'
 })
-export class ProdutosComponent implements OnInit {
+export class ProductsComponent implements OnInit {
 
   products: Product[] = [];
   loading = false;

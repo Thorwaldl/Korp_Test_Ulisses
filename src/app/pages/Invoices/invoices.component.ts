@@ -18,9 +18,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatCardModule,
     MatFormFieldModule
   ],
-  templateUrl: './notas.component.html'
+  templateUrl: './invoices.component.html'
 })
-export class NotasComponent implements OnInit {
+export class InvoicesComponent implements OnInit {
 
   invoices: Invoice[] = [];
   loading = false;

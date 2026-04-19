@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("estoque-service")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a5487ea067f6d0d428fb243b69e569a53249acf0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7adc08b525ead1ac945bf9a924b21b4c26abd3d6")]
 [assembly: System.Reflection.AssemblyProductAttribute("estoque-service")]
 [assembly: System.Reflection.AssemblyTitleAttribute("estoque-service")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
