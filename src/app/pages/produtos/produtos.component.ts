@@ -1,11 +1,67 @@
-import { Component } from '@angular/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ProductService, Product } from '../../services/product.service';
 
 @Component({
-  selector: 'app-produtos',
-  imports: [],
-  templateUrl: './produtos.component.html',
-  styleUrl: './produtos.component.css'
+  selector: 'app-products',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatTableModule
+  ],
+  templateUrl: './produtos.component.html'
 })
-export class ProdutosComponent {
+export class ProdutosComponent implements OnInit {
 
+  products: Product[] = [];
+  loading = false;
+  error = '';
+  success = '';
+
+  newProduct: Product = {
+    codigo: '',
+    descricao: '',
+    saldo: 0
+  };
+
+  constructor(private service: ProductService) {}
+
+  ngOnInit(): void {
+    this.load();
+  }
+
+  load() {
+    this.service.getAll().subscribe({
+      next: (res) => this.products = res,
+      error: (err) => console.error('Erro ao carregar produtos', err)
+    });
+  }
+
+  create() {
+    this.loading = true;
+    this.error = '';
+    this.success = '';
+
+    this.service.create(this.newProduct).subscribe({
+      next: () => {
+        this.load();
+        this.newProduct = { codigo: '', descricao: '', saldo: 0 };
+        this.success = 'Produto criado com sucesso!';
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = 'Erro ao criar produto';
+        this.loading = false;
+      }
+    });
+  }
 }

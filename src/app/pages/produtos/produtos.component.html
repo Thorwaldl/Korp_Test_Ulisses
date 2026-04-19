@@ -1,1 +1,60 @@
-<p>produtos works!</p>
+<h2>Produtos</h2>
+
+<!-- Mensagens -->
+<div *ngIf="error" style="color:red; margin-bottom: 10px;">
+  {{ error }}
+</div>
+
+<div *ngIf="success" style="color:green; margin-bottom: 10px;">
+  {{ success }}
+</div>
+
+<!-- Formulário -->
+<div style="display: flex; gap: 10px; margin-bottom: 20px; align-items: center;">
+  
+  <mat-form-field appearance="outline">
+    <mat-label>Código</mat-label>
+    <input matInput [(ngModel)]="newProduct.codigo">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Descrição</mat-label>
+    <input matInput [(ngModel)]="newProduct.descricao">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Saldo</mat-label>
+    <input matInput type="number" [(ngModel)]="newProduct.saldo">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="create()" [disabled]="loading">
+    {{ loading ? 'Salvando...' : 'Criar' }}
+  </button>
+
+</div>
+
+<!-- Tabela -->
+<table mat-table [dataSource]="products" style="width: 100%;">
+
+  <!-- Código -->
+  <ng-container matColumnDef="codigo">
+    <th mat-header-cell *matHeaderCellDef> Código </th>
+    <td mat-cell *matCellDef="let p"> {{p.codigo}} </td>
+  </ng-container>
+
+  <!-- Descrição -->
+  <ng-container matColumnDef="descricao">
+    <th mat-header-cell *matHeaderCellDef> Descrição </th>
+    <td mat-cell *matCellDef="let p"> {{p.descricao}} </td>
+  </ng-container>
+
+  <!-- Saldo -->
+  <ng-container matColumnDef="saldo">
+    <th mat-header-cell *matHeaderCellDef> Saldo </th>
+    <td mat-cell *matCellDef="let p"> {{p.saldo}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="['codigo','descricao','saldo']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['codigo','descricao','saldo'];"></tr>
+
+</table>
