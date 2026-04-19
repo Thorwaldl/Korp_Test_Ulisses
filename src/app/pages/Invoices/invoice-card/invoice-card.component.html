@@ -1,0 +1,15 @@
+<mat-card>
+
+  <div style="display: flex; justify-content: space-between;">
+    <div>
+      <strong>Nº {{ invoice.numero }}</strong> - {{ invoice.status }}
+    </div>
+
+    <button mat-button color="accent" (click)="onPrint.emit(invoice.id!)">
+      Imprimir
+    </button>
+  </div>
+
+  <ng-content></ng-content>
+
+</mat-card>

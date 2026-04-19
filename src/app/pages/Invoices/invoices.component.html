@@ -1,55 +1,63 @@
 <h2>Notas Fiscais</h2>
 
 <!-- Mensagens -->
-<div *ngIf="error" style="margin-bottom: 10px;">
-  <mat-card style="background: #f44336; color: white;">
+<div *ngIf="error">
+  <mat-card style="background: #f44336; color: white; margin-bottom: 10px;">
     {{ error }}
   </mat-card>
 </div>
 
-<div *ngIf="success" style="margin-bottom: 10px;">
-  <mat-card style="background: #4caf50; color: white;">
+<div *ngIf="success">
+  <mat-card style="background: #4caf50; color: white; margin-bottom: 10px;">
     {{ success }}
   </mat-card>
 </div>
 
-<!-- Criar nota -->
-<button mat-raised-button color="primary" (click)="create()" [disabled]="loading" style="margin-bottom: 20px;">
-  {{ loading ? 'Processando...' : 'Criar Nota' }}
+<!-- Criar -->
+<button mat-raised-button color="primary"
+        (click)="create()"
+        [disabled]="loading"
+        style="margin-bottom: 20px;">
+  Criar Nota
 </button>
 
-<!-- Lista de notas -->
+<!-- Lista -->
 <div style="display: flex; flex-direction: column; gap: 15px;">
 
-  <mat-card *ngFor="let n of invoices">
+  <app-invoice-card
+    *ngFor="let n of invoices"
+    [invoice]="n"
+    [loading]="loading"
+    (onPrint)="print($event)"
+  >
 
-    <!-- Cabeçalho -->
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-      <div>
-        <strong>Nº {{ n.numero }}</strong> - {{ n.status }}
-      </div>
+    <!-- Form -->
+    <div *ngIf="n.status === 'ABERTA'"
+         style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
 
-      <button mat-button color="accent" (click)="print(n.id!)" [disabled]="loading">
-        Imprimir
-      </button>
-    </div>
-
-    <!-- Adicionar item -->
-    <div *ngIf="n.status === 'ABERTA'" style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
-
+      <!-- Produto -->
       <mat-form-field appearance="outline">
-        <mat-label>Produto ID</mat-label>
-        <input matInput type="number" [(ngModel)]="getItem(n.id!).produtoId">
+        <mat-label>Produto</mat-label>
+        <mat-select [(ngModel)]="getItem(n.id!).produtoId">
+          <mat-option *ngFor="let p of products" [value]="p.id">
+            {{ p.descricao }} (Estoque: {{ p.saldo }})
+          </mat-option>
+        </mat-select>
       </mat-form-field>
 
+      <!-- Quantidade -->
       <mat-form-field appearance="outline">
         <mat-label>Quantidade</mat-label>
-        <input matInput type="number" [(ngModel)]="getItem(n.id!).quantidade">
+        <input matInput type="number"
+               [(ngModel)]="getItem(n.id!).quantidade">
       </mat-form-field>
 
+      <!-- Botão -->
       <button mat-raised-button color="primary"
-              (click)="addItem(n.id!)"
-              [disabled]="loading">
+        (click)="addItem(n.id!)"
+        [disabled]="loading 
+          || !getItem(n.id!).produtoId 
+          || !getItem(n.id!).quantidade">
         Adicionar
       </button>
 
@@ -57,11 +65,11 @@
 
     <!-- Itens -->
     <div style="margin-top: 10px;">
-      <div *ngFor="let item of n.itens" style="padding: 5px 0; border-bottom: 1px solid #ddd;">
-        Produto {{ item.produtoId }} — Qtd: {{ item.quantidade }}
+      <div *ngFor="let item of n.itens">
+        {{ getProductName(item.produtoId) }} — Qtd: {{ item.quantidade }}
       </div>
     </div>
 
-  </mat-card>
+  </app-invoice-card>
 
 </div>
