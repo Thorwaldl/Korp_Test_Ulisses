@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { InvoiceCardComponent } from './invoice-card/invoice-card.component';
 
@@ -24,7 +25,8 @@ import { InvoiceCardComponent } from './invoice-card/invoice-card.component';
     MatCardModule,
     MatFormFieldModule,
     MatSelectModule,
-    InvoiceCardComponent
+    InvoiceCardComponent,
+    MatSnackBarModule
   ],
   templateUrl: './invoices.component.html'
 })
@@ -39,10 +41,11 @@ export class InvoicesComponent implements OnInit {
 
   newItem: { [key: number]: { produtoId: number; quantidade: number } } = {};
 
-  constructor(
-    private service: InvoiceService,
-    private productService: ProductService
-  ) {}
+constructor(
+  private service: InvoiceService,
+  private productService: ProductService,
+  private snackBar: MatSnackBar
+) {}
 
   ngOnInit(): void {
     this.load();
@@ -64,6 +67,20 @@ export class InvoicesComponent implements OnInit {
     });
   }
 
+  showSuccess(message: string) {
+    this.snackBar.open(message, 'OK', {
+      duration: 3000,
+      panelClass: ['snackbar-success']
+    });
+  }
+
+  showError(message: string) {
+    this.snackBar.open(message, 'Fechar', {
+      duration: 4000,
+      panelClass: ['snackbar-error']
+    });
+  }
+  
   getItem(invoiceId: number) {
     if (!this.newItem[invoiceId]) {
       this.newItem[invoiceId] = { produtoId: 0, quantidade: 0 };
@@ -82,11 +99,11 @@ export class InvoicesComponent implements OnInit {
     this.service.create().subscribe({
       next: () => {
         this.load();
-        this.success = 'Nota criada!';
+        this.showSuccess('Nota criada!');
         this.loading = false;
       },
       error: () => {
-        this.error = 'Erro ao criar nota';
+        this.showError('Erro ao criar nota');
         this.loading = false;
       }
     });
@@ -100,7 +117,7 @@ export class InvoicesComponent implements OnInit {
     this.service.print(id).subscribe({
       next: () => {
         this.load();
-        this.success = 'Nota impressa com sucesso!';
+        this.showSuccess('Nota impressa com sucesso!'); 
         this.loading = false;
       },
       error: (err) => {
@@ -110,9 +127,11 @@ export class InvoicesComponent implements OnInit {
             : err?.error?.message || '';
 
         if (backendMessage.includes('Erro ao atualizar estoque do produto')) {
-          this.error = 'Estoque insuficiente';
-        } else {
-          this.error = 'Erro ao imprimir';
+          this.showError('Estoque insuficiente');
+        } else if (backendMessage.includes('Apenas notas abertas podem ser impressas')) {
+          this.showError('Nota já fechada');
+        }else {
+          this.showError('Erro ao imprimir');
         }
 
         this.loading = false;
@@ -129,11 +148,11 @@ export class InvoicesComponent implements OnInit {
     this.service.addItem(invoiceId, item).subscribe({
       next: () => {
         this.load();
-        this.success = 'Item adicionado!';
+        this.showSuccess('Item adicionado!');
         this.loading = false;
       },
       error: () => {
-        this.error = 'Erro ao adicionar item';
+        this.showError('Erro ao adicionar item');
         this.loading = false;
       }
     });

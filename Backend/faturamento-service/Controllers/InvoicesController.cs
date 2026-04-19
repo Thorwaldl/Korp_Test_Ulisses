@@ -129,7 +129,6 @@ public class InvoicesController : ControllerBase
             }
         }
 
-        // ✅ Só fecha a nota se tudo deu certo
         invoice.Status = "FECHADA";
         await _context.SaveChangesAsync();
 

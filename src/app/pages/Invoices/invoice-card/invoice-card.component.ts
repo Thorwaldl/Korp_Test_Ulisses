@@ -39,13 +39,7 @@ import { MatButtonModule } from '@angular/material/button';
       <!-- Conteúdo externo -->
       <ng-content></ng-content>
 
-      <!-- Itens -->
-      <div style="margin-top: 10px;">
-        <div *ngFor="let item of invoice.itens"
-             style="padding: 5px 0; border-bottom: 1px solid #ddd;">
-          Produto {{ item.produtoId }} — Qtd: {{ item.quantidade }}
-        </div>
-      </div>
+
 
     </mat-card>
   `
